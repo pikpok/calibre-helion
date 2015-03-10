@@ -17,7 +17,7 @@ class Helion(Source):
 	description	= _('Pobiera metadane z helion.pl')
 	author = 'pikpok'
 	supported_platforms = ['windows', 'osx', 'linux']
-	version = (0, 0, 1)
+	version = (0, 0, 3)
 	minimum_calibre_version = (0, 8, 0)
 
 	capabilities = frozenset(['identify', 'cover'])
@@ -30,6 +30,7 @@ class Helion(Source):
 		br = self.browser
 		q = ''
 		title = title.replace('?','')
+		title = title.replace('ó', 'o')
 		title_tokens = list(self.get_title_tokens(title, strip_joiners=False, strip_subtitle=True))
 		if title_tokens:
 			tokens = [quote(t.encode('utf-8') if isinstance(t, unicode) else t) for t in title_tokens]
@@ -45,7 +46,6 @@ class Helion(Source):
 
 		response = br.open_novisit(query, timeout=timeout)
 		raw = response.read().strip()
-		raw = raw.decode('utf-8', errors='replace')
 
 		root = fromstring(clean_ascii_chars(raw))
 		results = root.xpath('*//div[contains(@class,"search-helion")]')
