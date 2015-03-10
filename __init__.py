@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import (unicode_literals, division, absolute_import,
                         print_function)
 import time
@@ -109,12 +111,12 @@ if __name__ == '__main__':
 		[
 		(
 			{
-			'title':'Rails',
-			'authors':['Chad Fowler']
+			'title':'jak pozostać anonimowym w sieci',
+			'authors':['sokół']
 			},
 			[
-			title_test('Rails. Przepisy'),
-			authors_test(['Chad Fowler'])
+			title_test('Jak pozostać anonimowym w sieci'),
+			authors_test(['Radosław Sokół'])
 			]
 		)
 		]

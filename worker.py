@@ -21,18 +21,17 @@ class Worker(Thread):
 
 	def run(self):
 		raw = self.browser.open_novisit(self.url, timeout=self.timeout).read().strip()
-		raw = raw.decode('utf-8', errors='replace')
 		root = fromstring(clean_ascii_chars(raw))
 
 		helion_id = re.search('ksiazki/(.*).htm', self.url).groups(0)[0]
 
-		title = root.xpath('//div[@class="book_title"]/h1/span/text()')[0]
+		title = unicode(root.xpath('//div[@class="book_title"]/h1/span/text()')[0])
 
-		author_nodes = root.xpath('//div[@class="book_title"]/p/a')
-		if author_nodes:
-			authors = []
-			for author_node in author_nodes:
-				authors.append(author_node.xpath('./span/text()')[0])
+		author_node = root.xpath('///div[@class="book_title"]/p/descendant::text()')
+		authors = []
+		for i in range(1, len(author_node), 2):
+			authors.append(unicode(author_node[i]))
+		print(authors)
 
 		mi = Metadata(title,authors)
 		
